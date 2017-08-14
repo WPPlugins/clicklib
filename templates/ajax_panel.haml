@@ -1,0 +1,18 @@
+-$key_loader = "{$key}_loader"
+%div{:id=>$key, :style=>'display: none'}
+%div{:id=>$key_loader, :style=>"width: 300px; margin-left: auto; margin-right: auto; text-align: center"}
+  -if($message)
+    %p
+      <?=$message?>
+  -if($loader_vpath)
+    %img{:src=>$loader_vpath, :width=>300}
+  :js
+    function render_<?=$key?>(o)
+    {
+      jQuery('#<?=$key?>').html(o);
+      jQuery('#<?=$key_loader?>').hide();
+      jQuery('#<?=$key?>').show();
+    }
+    jQuery(function() {
+      jQuery.getScript("<?=$gateway?>?<?=$qs?>");
+    });
